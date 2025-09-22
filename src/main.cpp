@@ -4,6 +4,12 @@
 #include <chrono>
 #include "raylib.h"
 
+struct Bird {
+    int x;
+    int y;
+    int vy;
+};
+
 int main()
 { 
     float delta_time = 0.0f;
@@ -16,7 +22,7 @@ int main()
 
     while (!state_machine.is_game_ending())
     {
-        state_machine.handle_state_changes(delta_time);
+        state_machine.handle_state_changes(delta_time = GetFrameTime());
         state_machine.getCurrentState()->handleInput();
         state_machine.getCurrentState()->update(delta_time);
         state_machine.getCurrentState()->render();       
