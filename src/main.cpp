@@ -2,10 +2,13 @@
 #include <MainGameState.hpp>
 #include <memory>
 #include <chrono>
+#include "raylib.h"
 
 int main()
 { 
     float delta_time = 0.0f;
+
+    InitWindow(288, 512, "FlappyBird");
 
     StateMachine state_machine = StateMachine();
     state_machine.add_state(std::make_unique<MainGameState>(), false);
@@ -18,6 +21,8 @@ int main()
         state_machine.getCurrentState()->update(delta_time);
         state_machine.getCurrentState()->render();       
     }
+
+    CloseWindow();
 
     return 0;
 }
