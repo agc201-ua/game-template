@@ -4,12 +4,6 @@
 #include <chrono>
 #include "raylib.h"
 
-struct Bird {
-    int x;
-    int y;
-    int vy;
-};
-
 int main()
 { 
     float delta_time = 0.0f;
