@@ -41,4 +41,5 @@ class MainGameState : public GameState
         float spawnEvery;
         const float PIPE_W = 32;
         const float PIPE_H = 320;
+        int puntos;
 };

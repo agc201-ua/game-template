@@ -5,6 +5,7 @@ MainGameState::MainGameState()
     this->player.x = 200;
     this->player.y = 200;
     this->player.vy = 0;
+    this->puntos = 0;
 
     this->spawnTimer = 0.0f;
     this->spawnEvery = 3.0f;
@@ -15,6 +16,7 @@ void MainGameState::init()
     this->player.x = 200;
     this->player.y = 200;
     this->player.vy = 0;
+    this->puntos = 0;
 
     this->pipes.clear();
     this->spawnTimer = 0.0f;
@@ -98,6 +100,13 @@ void MainGameState::update(float deltaTime)
             this->state_machine->add_state(std::make_unique<GameOverState>(), true);   
         }
     }
+
+    // Update score
+    for(auto& pipe : this->pipes) {
+        if(!pipe.scored && (pipe.top.x + PIPE_W) < this->player.x) {
+            pipe.scored = true;
+            this->puntos += 1;        }
+    }
 }
 
 void MainGameState::render()
@@ -110,5 +119,6 @@ void MainGameState::render()
         DrawRectangleRec(pipe.top, GREEN);
         DrawRectangleRec(pipe.bot, GREEN);
     }
+    DrawText(("Puntos: " + std::to_string(this->puntos)).c_str(), 10, 10, 20, BLACK);
     EndDrawing();
 }
