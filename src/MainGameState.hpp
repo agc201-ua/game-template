@@ -9,6 +9,8 @@ struct Bird {
     int x;
     int y;
     int vy;
+    int height;
+    int width;
 };
 
 struct PipePair { 
@@ -35,11 +37,13 @@ class MainGameState : public GameState
         char entered_key;
         Bird player;
         std::deque<PipePair> pipes;
-        const float PIPE_GAP = 100;
+        float PIPE_GAP;
         const float PIPE_SPEED = 100;
         float spawnTimer;
         float spawnEvery;
-        const float PIPE_W = 32;
-        const float PIPE_H = 320;
+        float PIPE_W;
+        float PIPE_H;
         int puntos;
+        Texture2D birdSprite;
+        Texture2D pipeSprite;
 };

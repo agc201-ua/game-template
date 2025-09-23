@@ -13,6 +13,14 @@ MainGameState::MainGameState()
 
 void MainGameState::init()
 {
+    this->birdSprite = LoadTexture("assets/bluebird-upflap.png");
+    this->pipeSprite = LoadTexture("assets/pipe-green.png");
+    this->player.height = birdSprite.height;
+    this->player.width = birdSprite.width;
+    this->PIPE_H = pipeSprite.height;
+    this->PIPE_W = pipeSprite.width;
+    this->PIPE_GAP = this->player.height * 4.5f;
+
     this->player.x = 200;
     this->player.y = 200;
     this->player.vy = 0;
@@ -68,9 +76,10 @@ void MainGameState::update(float deltaTime)
     }
 
     Rectangle birdRect = { 
-        static_cast<float>(this->player.x - 17), 
-        static_cast<float>(this->player.y - 17), 
-        34, 34 
+        static_cast<float>(this->player.x - this->player.width / 2), 
+        static_cast<float>(this->player.y - this->player.height / 2), 
+        static_cast<float>(this->player.width),
+        static_cast<float>(this->player.height)
     };
 
     // Check bird boundaries
@@ -82,8 +91,8 @@ void MainGameState::update(float deltaTime)
         Fade(BLUE, 0.5f) // azul semitransparente
     );
     */ 
-   // Easiest way to check bird boundaries
-   //DrawRectangleLinesEx(birdRect, 2, RED);
+    // Easiest way to check bird boundaries
+    //DrawRectangleLinesEx(birdRect, 2, RED);
 
     // Check collisions
     for(const auto& pipe : this->pipes) {
@@ -114,10 +123,11 @@ void MainGameState::render()
     BeginDrawing();
     ClearBackground(RAYWHITE);
     DrawText("Bienvenido a Flappy Bird DCA", 20, 200, 18, BLACK);
-    DrawCircle(this->player.x, this->player.y, 17, RED);
-    for(const auto& pipe : this->pipes) {
-        DrawRectangleRec(pipe.top, GREEN);
-        DrawRectangleRec(pipe.bot, GREEN);
+    DrawTextureEx(this->birdSprite, {static_cast<float>(this->player.x - this->player.width / 2),
+        static_cast<float>(this->player.y - this->player.height / 2)}, 0.f, 1.0f, WHITE);
+    for(const auto& p : this->pipes) {
+        DrawTextureEx(this->pipeSprite, {p.top.x + PIPE_W, p.top.y + PIPE_H}, 180.f, 1.0f, WHITE);
+        DrawTextureEx(this->pipeSprite, {p.bot.x , p.bot.y}, 0.f, 1.0f, WHITE);
     }
     DrawText(("Puntos: " + std::to_string(this->puntos)).c_str(), 10, 10, 20, BLACK);
     EndDrawing();
