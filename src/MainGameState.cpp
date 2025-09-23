@@ -1,8 +1,4 @@
 #include <MainGameState.hpp>
-#include <iostream>
-extern "C" {
-    #include <raylib.h>
-}
 
 MainGameState::MainGameState()
 {
@@ -41,7 +37,7 @@ void MainGameState::update(float deltaTime)
     this->spawnTimer += deltaTime;
     if(this->spawnTimer >= this->spawnEvery) {
         this->spawnTimer = 0.0f;
-        int pipe_y_offset_top = GetRandomValue(PIPE_H/2, GetScreenHeight()/2);
+        float pipe_y_offset_top = GetRandomValue(PIPE_H/2, GetScreenHeight()/2);
         float startX = GetScreenWidth();
         Rectangle top = { 
             startX, -pipe_y_offset_top, 

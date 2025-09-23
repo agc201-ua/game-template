@@ -1,5 +1,6 @@
 #pragma once
 #include <GameState.hpp>
+#include <iostream>
 #include <deque>
 
 struct Bird {
@@ -32,10 +33,10 @@ class MainGameState : public GameState
         char entered_key;
         Bird player;
         std::deque<PipePair> pipes;
-        const int PIPE_GAP = 100;
-        const int PIPE_SPEED = 100;
+        const float PIPE_GAP = 100;
+        const float PIPE_SPEED = 100;
         float spawnTimer;
         float spawnEvery;
-        const int PIPE_W = 32;
-        const int PIPE_H = 320;
+        const float PIPE_W = 32;
+        const float PIPE_H = 320;
 };
