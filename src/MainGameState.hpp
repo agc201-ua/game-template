@@ -1,5 +1,7 @@
 #pragma once
 #include <GameState.hpp>
+#include <StateMachine.hpp>
+#include <GameOverState.hpp>
 #include <iostream>
 #include <deque>
 
