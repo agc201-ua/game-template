@@ -34,7 +34,7 @@ void MainGameState::handleInput()
 {
     if(IsKeyPressed(KEY_SPACE))
     {
-        this->player.vy = -150;
+        this->player.vy = -220;
     }
 }
 
