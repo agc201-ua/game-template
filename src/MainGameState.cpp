@@ -16,6 +16,7 @@ void MainGameState::init()
     this->birdSprite = LoadTexture("assets/bluebird-upflap.png");
     this->pipeSprite = LoadTexture("assets/pipe-green.png");
     this->background = LoadTexture("assets/background-day.png");
+    this->base = LoadTexture("assets/base.png");
     this->player.height = birdSprite.height;
     this->player.width = birdSprite.width;
     this->PIPE_H = pipeSprite.height;
@@ -32,7 +33,8 @@ void MainGameState::init()
 }
 
 MainGameState::~MainGameState() {
-    UnloadTexture(background);
+    UnloadTexture(this->background);
+    UnloadTexture(this->base);
 }
 
 void MainGameState::handleInput()
@@ -128,6 +130,7 @@ void MainGameState::render()
     BeginDrawing();
     //ClearBackground(RAYWHITE);
     DrawTexture(background, 0, 0, WHITE);
+    DrawTexture(base, 0, GetScreenHeight() - base.height, WHITE);
     DrawText("Bienvenido a Flappy Bird DCA", 20, 200, 18, BLACK);
     DrawTextureEx(this->birdSprite, {static_cast<float>(this->player.x - this->player.width / 2),
         static_cast<float>(this->player.y - this->player.height / 2)}, 0.f, 1.0f, WHITE);

@@ -22,4 +22,5 @@ class GameOverState : public GameState
     private:
         char entered_key;
         Texture2D background;
+        Texture2D base;
 };

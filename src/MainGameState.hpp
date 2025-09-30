@@ -47,4 +47,5 @@ class MainGameState : public GameState
         Texture2D birdSprite;
         Texture2D pipeSprite;
         Texture2D background;
+        Texture2D base;
 };
