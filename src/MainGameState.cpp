@@ -6,6 +6,7 @@ MainGameState::MainGameState()
     this->player.y = 200;
     this->player.vy = 0;
     this->puntos = 0;
+    this->pipeSpeed = PIPE_SPEED;
 
     this->spawnTimer = 0.0f;
     this->spawnEvery = 3.0f;
@@ -88,10 +89,12 @@ void MainGameState::update(float deltaTime)
         this->pipes.push_back(new_pair);
     }
 
+    // Increase pipe speed based on score
+    pipeSpeed += this->puntos * 0.02f;
     // Move pipes
     for(auto& pipe : this->pipes) {
-        pipe.top.x -= PIPE_SPEED * deltaTime;
-        pipe.bot.x -= PIPE_SPEED * deltaTime;
+        pipe.top.x -= pipeSpeed * deltaTime;
+        pipe.bot.x -= pipeSpeed * deltaTime;
     }
 
     // Remove off-screen pipes

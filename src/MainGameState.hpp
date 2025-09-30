@@ -55,4 +55,5 @@ class MainGameState : public GameState
         bool isDead = false;
         float deathTimer = 0.0f;
         Texture2D numberSprites[10];
+        float pipeSpeed;
     };
