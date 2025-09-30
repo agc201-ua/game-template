@@ -44,7 +44,6 @@ class MainGameState : public GameState
         float PIPE_W;
         float PIPE_H;
         int puntos;
-        Texture2D birdSprite;
         Texture2D pipeSprite;
         Texture2D background;
         Texture2D base;
