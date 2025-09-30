@@ -13,6 +13,9 @@ MainGameState::MainGameState()
 
 void MainGameState::init()
 {
+    InitAudioDevice();
+    this->flapSound = LoadSound("assets/audio/audio_wing.wav");
+    this->pointSound = LoadSound("assets/audio/audio_point.wav");
     this->birdSprite = LoadTexture("assets/bluebird-upflap.png");
     this->pipeSprite = LoadTexture("assets/pipe-green.png");
     this->background = LoadTexture("assets/background-day.png");
@@ -35,6 +38,9 @@ void MainGameState::init()
 MainGameState::~MainGameState() {
     UnloadTexture(this->background);
     UnloadTexture(this->base);
+    UnloadSound(this->flapSound);
+    UnloadSound(this->pointSound);
+    CloseAudioDevice();
 }
 
 void MainGameState::handleInput()
@@ -42,6 +48,7 @@ void MainGameState::handleInput()
     if(IsKeyPressed(KEY_SPACE))
     {
         this->player.vy = -220;
+        PlaySound(this->flapSound);
     }
 }
 
@@ -113,7 +120,7 @@ void MainGameState::update(float deltaTime)
     for(const auto& pipe : this->pipes) {
         if(player.y < 0 || player.y > GetScreenHeight()) {
             std::cout << "The bird is dead!" << std::endl;
-            this->state_machine->add_state(std::make_unique<GameOverState>(), true);   
+            this->state_machine->add_state(std::make_unique<GameOverState>(), true);
         }
     }
 
@@ -121,7 +128,9 @@ void MainGameState::update(float deltaTime)
     for(auto& pipe : this->pipes) {
         if(!pipe.scored && (pipe.top.x + PIPE_W) < this->player.x) {
             pipe.scored = true;
-            this->puntos += 1;        }
+            this->puntos += 1;        
+            PlaySound(this->pointSound);
+        }
     }
 }
 

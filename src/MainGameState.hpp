@@ -48,4 +48,6 @@ class MainGameState : public GameState
         Texture2D pipeSprite;
         Texture2D background;
         Texture2D base;
+        Sound flapSound;
+        Sound pointSound;
 };
