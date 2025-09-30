@@ -8,7 +8,7 @@ class GameOverState : public GameState
 {
     public:
         GameOverState();
-        ~GameOverState() = default;
+        ~GameOverState();
 
         void init() override;
         void handleInput() override;
@@ -21,4 +21,5 @@ class GameOverState : public GameState
     
     private:
         char entered_key;
+        Texture2D background;
 };

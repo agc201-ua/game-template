@@ -22,7 +22,7 @@ class MainGameState : public GameState
 {
     public:
         MainGameState();
-        ~MainGameState() = default;
+        ~MainGameState();
 
         void init() override;
         void handleInput() override;
@@ -46,4 +46,5 @@ class MainGameState : public GameState
         int puntos;
         Texture2D birdSprite;
         Texture2D pipeSprite;
+        Texture2D background;
 };

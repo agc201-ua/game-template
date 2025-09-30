@@ -2,7 +2,13 @@
 
 GameOverState::GameOverState(){}
 
-void GameOverState::init(){}
+void GameOverState::init(){
+    background = LoadTexture("assets/background-night.png");
+}
+
+GameOverState::~GameOverState() {
+    UnloadTexture(background);
+}
 
 void GameOverState::handleInput(){
     if(IsKeyPressed(KEY_SPACE)) {
@@ -15,7 +21,8 @@ void GameOverState::update(float deltaTime){}
 
 void GameOverState:: render() {
     BeginDrawing();
-    ClearBackground(RAYWHITE);
+    //ClearBackground(RAYWHITE);
+    DrawTexture(background, 0, 0, WHITE);
     DrawText("Game Over!", 20, 180, 18, BLACK);
     DrawText("Press SPACE to restart", 20, 220, 18, BLACK);
     EndDrawing();
