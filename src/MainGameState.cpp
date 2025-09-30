@@ -16,6 +16,8 @@ void MainGameState::init()
     InitAudioDevice();
     this->flapSound = LoadSound("assets/audio/audio_wing.wav");
     this->pointSound = LoadSound("assets/audio/audio_point.wav");
+    this->hitSound = LoadSound("assets/audio/audio_hit.wav");
+    this->dieSound = LoadSound("assets/audio/audio_die.wav");
     this->birdSprite = LoadTexture("assets/bluebird-upflap.png");
     this->pipeSprite = LoadTexture("assets/pipe-green.png");
     this->background = LoadTexture("assets/background-day.png");
@@ -40,6 +42,8 @@ MainGameState::~MainGameState() {
     UnloadTexture(this->base);
     UnloadSound(this->flapSound);
     UnloadSound(this->pointSound);
+    UnloadSound(this->hitSound);
+    UnloadSound(this->dieSound);
     CloseAudioDevice();
 }
 
@@ -108,19 +112,32 @@ void MainGameState::update(float deltaTime)
     // Easiest way to check bird boundaries
     //DrawRectangleLinesEx(birdRect, 2, RED);
 
+    if (this->isDead) {
+        this->deathTimer -= deltaTime;
+        if (this->deathTimer <= 0.0f) {
+            this->state_machine->add_state(std::make_unique<GameOverState>(), true);
+        }
+        return;
+    }
+
     // Check collisions
     for(const auto& pipe : this->pipes) {
         if(CheckCollisionRecs(birdRect, pipe.top) || CheckCollisionRecs(birdRect, pipe.bot)) {
+            this->isDead = true;
+            PlaySound(this->hitSound);
+            PlaySound(this->dieSound);
+            this->deathTimer = 0.7f; // delay para que suene antes de cambiar de estado
             std::cout << "Collision detected!" << std::endl;
-            this->state_machine->add_state(std::make_unique<GameOverState>(), true);
         }
     }
 
     // Check if bird is out of screen
     for(const auto& pipe : this->pipes) {
         if(player.y < 0 || player.y > GetScreenHeight()) {
+            this->isDead = true;
+            PlaySound(this->dieSound);
+            this->deathTimer = 0.7f;
             std::cout << "The bird is dead!" << std::endl;
-            this->state_machine->add_state(std::make_unique<GameOverState>(), true);
         }
     }
 

@@ -50,4 +50,9 @@ class MainGameState : public GameState
         Texture2D base;
         Sound flapSound;
         Sound pointSound;
-};
+        Sound hitSound;
+        Sound dieSound;
+        private:
+        bool isDead = false;
+        float deathTimer = 0.0f;
+    };
