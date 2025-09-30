@@ -20,7 +20,12 @@ void MainGameState::init()
     this->hitSound = LoadSound("assets/audio/audio_hit.wav");
     this->dieSound = LoadSound("assets/audio/audio_die.wav");
     
-    this->birdSprite = LoadTexture("assets/bluebird-upflap.png");
+    //this->birdSprite = LoadTexture("assets/bluebird-upflap.png");
+    this->birdDownFlap = LoadTexture("assets/bluebird-downflap.png");
+    this->birdMidFlap  = LoadTexture("assets/bluebird-midflap.png");
+    this->birdUpFlap   = LoadTexture("assets/bluebird-upflap.png");
+    currentBirdFrame = birdMidFlap;
+
     this->pipeSprite = LoadTexture("assets/pipe-green.png");
     this->background = LoadTexture("assets/background-day.png");
     this->base = LoadTexture("assets/base.png");
@@ -29,8 +34,10 @@ void MainGameState::init()
         numberSprites[i] = LoadTexture(path.c_str());
     }
 
-    this->player.height = birdSprite.height;
-    this->player.width = birdSprite.width;
+    //this->player.height = birdSprite.height;
+    //this->player.width = birdSprite.width;
+    this->player.width  = birdMidFlap.width;
+    this->player.height = birdMidFlap.height;
     this->PIPE_H = pipeSprite.height;
     this->PIPE_W = pipeSprite.width;
     this->PIPE_GAP = this->player.height * 4.5f;
@@ -156,6 +163,24 @@ void MainGameState::update(float deltaTime)
             pipe.scored = true;
             this->puntos += 1;        
             PlaySound(this->pointSound);
+        }
+    }
+
+    //Check animations
+    this->animationTimer += deltaTime;
+    if(this->animationTimer >= this->animationSpeed) {
+        this->animationTimer = 0.0f;
+        this->frameIndex = (this->frameIndex + 1) % 3; // 3 frames: down, mid, up
+        switch(this->frameIndex) {
+            case 0:
+                currentBirdFrame = birdDownFlap;
+                break;
+            case 1:
+                currentBirdFrame = birdMidFlap;
+                break;
+            case 2:
+                currentBirdFrame = birdUpFlap;
+                break;
         }
     }
 }

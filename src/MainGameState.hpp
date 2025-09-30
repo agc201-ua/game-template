@@ -56,4 +56,11 @@ class MainGameState : public GameState
         float deathTimer = 0.0f;
         Texture2D numberSprites[10];
         float pipeSpeed;
+        Texture2D birdDownFlap;
+        Texture2D birdMidFlap;
+        Texture2D birdUpFlap;
+        Texture2D currentBirdFrame;
+        float animationTimer = 0.0f;
+        float animationSpeed = 0.2f;
+        int frameIndex = 0;
     };
