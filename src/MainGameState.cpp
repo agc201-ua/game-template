@@ -97,7 +97,8 @@ void MainGameState::update(float deltaTime)
     }
 
     // Increase pipe speed based on score
-    pipeSpeed += this->puntos * 0.01f;
+    this->pipeSpeed += this->puntos * 0.01f;
+    
     // Move pipes
     for(auto& pipe : this->pipes) {
         pipe.top.x -= pipeSpeed * deltaTime;
