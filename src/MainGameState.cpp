@@ -192,9 +192,11 @@ void MainGameState::render()
     DrawTexture(background, 0, 0, WHITE);
     DrawTexture(base, 0, GetScreenHeight() - base.height, WHITE);
     DrawText("Bienvenido a Flappy Bird DCA", 20, 200, 18, BLACK);
-    DrawTextureEx(this->birdSprite, {static_cast<float>(this->player.x - this->player.width / 2),
+    /*DrawTextureEx(this->birdSprite, {static_cast<float>(this->player.x - this->player.width / 2),
+        static_cast<float>(this->player.y - this->player.height / 2)}, 0.f, 1.0f, WHITE);*/
+    DrawTextureEx(this->currentBirdFrame, {static_cast<float>(this->player.x - this->player.width / 2),
         static_cast<float>(this->player.y - this->player.height / 2)}, 0.f, 1.0f, WHITE);
-        for(const auto& p : this->pipes) {
+    for(const auto& p : this->pipes) {
         DrawTextureEx(this->pipeSprite, {p.top.x + PIPE_W, p.top.y + PIPE_H}, 180.f, 1.0f, WHITE);
         DrawTextureEx(this->pipeSprite, {p.bot.x , p.bot.y}, 0.f, 1.0f, WHITE);
     }
