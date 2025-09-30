@@ -126,7 +126,7 @@ void MainGameState::update(float deltaTime)
             this->isDead = true;
             PlaySound(this->hitSound);
             PlaySound(this->dieSound);
-            this->deathTimer = 0.7f; // delay para que suene antes de cambiar de estado
+            this->deathTimer = 0.7f; // delay before switching to Game Over state
             std::cout << "Collision detected!" << std::endl;
         }
     }
