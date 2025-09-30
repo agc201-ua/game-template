@@ -52,7 +52,7 @@ class MainGameState : public GameState
         Sound pointSound;
         Sound hitSound;
         Sound dieSound;
-        private:
         bool isDead = false;
         float deathTimer = 0.0f;
+        Texture2D numberSprites[10];
     };

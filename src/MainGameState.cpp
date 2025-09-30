@@ -18,10 +18,16 @@ void MainGameState::init()
     this->pointSound = LoadSound("assets/audio/audio_point.wav");
     this->hitSound = LoadSound("assets/audio/audio_hit.wav");
     this->dieSound = LoadSound("assets/audio/audio_die.wav");
+    
     this->birdSprite = LoadTexture("assets/bluebird-upflap.png");
     this->pipeSprite = LoadTexture("assets/pipe-green.png");
     this->background = LoadTexture("assets/background-day.png");
     this->base = LoadTexture("assets/base.png");
+    for(int i = 0; i < 10; i++) {
+        std::string path = "assets/" + std::to_string(i) + ".png";
+        numberSprites[i] = LoadTexture(path.c_str());
+    }
+
     this->player.height = birdSprite.height;
     this->player.width = birdSprite.width;
     this->PIPE_H = pipeSprite.height;
@@ -160,10 +166,18 @@ void MainGameState::render()
     DrawText("Bienvenido a Flappy Bird DCA", 20, 200, 18, BLACK);
     DrawTextureEx(this->birdSprite, {static_cast<float>(this->player.x - this->player.width / 2),
         static_cast<float>(this->player.y - this->player.height / 2)}, 0.f, 1.0f, WHITE);
-    for(const auto& p : this->pipes) {
+        for(const auto& p : this->pipes) {
         DrawTextureEx(this->pipeSprite, {p.top.x + PIPE_W, p.top.y + PIPE_H}, 180.f, 1.0f, WHITE);
         DrawTextureEx(this->pipeSprite, {p.bot.x , p.bot.y}, 0.f, 1.0f, WHITE);
     }
-    DrawText(("Puntos: " + std::to_string(this->puntos)).c_str(), 10, 10, 20, BLACK);
+    //DrawText(("Puntos: " + std::to_string(this->puntos)).c_str(), 10, 10, 20, BLACK);
+    std::string score = std::to_string(this->puntos);
+    int xOffset = 10;
+    int yOffset = 10;
+    for(char c : score) {
+        int digit = c - '0'; // convertir char a int
+        DrawTexture(numberSprites[digit], xOffset, yOffset, WHITE);
+        xOffset += numberSprites[digit].width + 2; // separador de 2 px entre dígitos
+    }
     EndDrawing();
 }
